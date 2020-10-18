@@ -21,8 +21,8 @@ class Signup extends Component{
         return (
             <div>
                 <form onSubmit={this.submitHandler}>
-                    <input type="text" name="name" placeholder="name" value={this.state.name} onChange={this.changeHandler}/>
-                    <input type="text" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler}/>
+                    <input type="text" name="name" placeholder="Pame" value={this.state.name} onChange={this.changeHandler}/>
+                    <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
                     <input type="submit" value="sign up" />
                 </form>
                 <button onClick={() => this.props.history.push('/login')}>Back to Login</button>
