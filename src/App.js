@@ -17,6 +17,7 @@ class App extends Component {
     category: '',
     difficulty: '',
     numberOfQuestions: '',
+    score: 0
   }
 
   componentDidMount() {
@@ -29,7 +30,7 @@ class App extends Component {
       })
       .then(r => r.json())
         .then(data => {
-        this.setState({ user: data.user });
+          this.setState({ user: data.user });
       })
       .catch(error => console.log(error))
     } else {
@@ -84,7 +85,16 @@ class App extends Component {
     this.props.history.push('/game')
   }
 
+  updateScore = (value) => {
+    if (value === 1) {
+      this.setState((prevState) => ({ score: prevState.score + 1}))
+    }
+  }
 
+  newGame = () => {
+    this.setState({ category: '', difficulty: '', numberOfQuestions: '', score: 0 })
+    this.props.history.push('/lobby')
+  }
 
   render() {
     return (
@@ -94,13 +104,12 @@ class App extends Component {
           <Route path="/login" render={() => <Login submitHandler={this.loginHandler} />} />
           <Route path="/signup" render={() => <Signup submitHandler={this.signupHandler} />} />
           <Route path="/lobby" render={() => <GameContainer user={this.state.user} createGame={this.createGame}/> } />
-          <Route path="/game" render={() => <Game category={this.state.category} difficulty={this.state.difficulty} numberOfQuestions={this.state.numberOfQuestions}/>} />
+          <Route path="/game" render={() => <Game user={this.state.user} category={this.state.category} difficulty={this.state.difficulty} numberOfQuestions={this.state.numberOfQuestions} updateScore={this.updateScore} score={this.state.score} newGame={this.newGame}/>} />
         </Switch>
-        {this.state.user ? <button onClick={this.logOutHandler}>Logout</button> : null}
+        {this.state.user ? <button id="logout" onClick={this.logOutHandler}>Logout</button> : null}
         </div>
       );
     }
   }
-
 
 export default withRouter(App);
