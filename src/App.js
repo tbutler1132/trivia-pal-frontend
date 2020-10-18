@@ -73,16 +73,16 @@ class App extends Component {
     .catch(error => console.log(error))
   }
 
-    logOutHandler = () => {
-      localStorage.removeItem('token')
-      this.setState({ user: null })
-      this.props.history.push('/')
-    }
+  logOutHandler = () => {
+    localStorage.removeItem('token')
+    this.setState({ user: null })
+    this.props.history.push('/')
+  }
 
-    createGame = (newCategory, newDifficulty, newNumberOfQuestions) => {
-      this.setState({ category: newCategory, difficulty: newDifficulty, numberOfQuestions: newNumberOfQuestions })
-      this.props.history.push('/game')
-    }
+  createGame = (newCategory, newDifficulty, newNumberOfQuestions) => {
+    this.setState({ category: newCategory, difficulty: newDifficulty, numberOfQuestions: newNumberOfQuestions })
+    this.props.history.push('/game')
+  }
 
 
 

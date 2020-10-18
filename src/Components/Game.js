@@ -15,8 +15,8 @@ class Game extends React.Component {
 
     componentDidMount() {
         fetch(BASE_API + "/questions")
-            .then(resp => resp.json())
-            .then(resp => console.log(resp))
+            .then( resp => resp.json())
+            .then( bigdata  => this.setState({ allQuestions: bigdata }))
     }
             // .then(data => this.setState({ allQuestions: data }))
     //         .then( () => {

@@ -10,10 +10,6 @@ class GameContainer extends React.Component {
         difficulty: '',
     }
 
-    componentDidMount() {
-        console.log(this.props)
-    }
-
     changeHandler = (e) => {
         this.setState({ [e.target.name]: [e.target.value]})
     }
@@ -62,7 +58,8 @@ class GameContainer extends React.Component {
                         </form >
                     </div>
                     :
-                    <Redirect to="/login" />}
+                    <Redirect to="/login" />
+                }
         </>
             )
     }
