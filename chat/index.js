@@ -19,9 +19,11 @@ var numUsers = 0;
 
 io.on('connection', (socket) => {
   var addedUser = false;
+  console.log("New Browser Connected:", socket.id)
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
+    console.log(socket.username,"says:", data)
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
@@ -37,6 +39,7 @@ io.on('connection', (socket) => {
     socket.username = username;
     ++numUsers;
     addedUser = true;
+    console.log("New User:", username)
     socket.emit('login', {
       numUsers: numUsers
     });

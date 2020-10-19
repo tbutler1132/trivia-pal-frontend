@@ -1,4 +1,5 @@
 import React from 'react'
+import { Container, Button, Form } from 'react-bootstrap'
 
 class Answer extends React.Component {
 
@@ -6,7 +7,6 @@ class Answer extends React.Component {
         htmlID: '',
         clicked: false,
     }
-
 
     submitAnswer = () => {
         if (!this.state.clicked) {
@@ -19,6 +19,7 @@ class Answer extends React.Component {
                     break;
                 default:
                     console.log('Check the Answer Switch')
+                    break;
             }
             this.props.nextQuestion(this.props.value)
         }
@@ -26,9 +27,9 @@ class Answer extends React.Component {
 
     render() {
         return (
-            <button className="answer" id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
+            <Button className="answer" id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
                 { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
-            </button >
+            </Button >
         )
     }
 }

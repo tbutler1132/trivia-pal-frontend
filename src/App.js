@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import Login from './Components/Login'
 import Signup from './Components/Signup'
 import Game from './Components/Game'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import GameContainer from './Containers/GameContainer'
+import { Button, Form } from 'react-bootstrap'
 
 
 const BASE_API = 'http://localhost:3000'
@@ -98,7 +99,7 @@ class App extends Component {
 
   render() {
     return (
-        <div>
+        <div className="app-div" >
         <Switch>
           <Route exact path="/"><Redirect to="login"/></Route>
           <Route path="/login" render={() => <Login submitHandler={this.loginHandler} />} />
@@ -106,7 +107,8 @@ class App extends Component {
           <Route path="/lobby" render={() => <GameContainer user={this.state.user} createGame={this.createGame}/> } />
           <Route path="/game" render={() => <Game user={this.state.user} category={this.state.category} difficulty={this.state.difficulty} numberOfQuestions={this.state.numberOfQuestions} updateScore={this.updateScore} score={this.state.score} newGame={this.newGame}/>} />
         </Switch>
-        {this.state.user ? <button id="logout" onClick={this.logOutHandler}>Logout</button> : null}
+        <br/>
+        {this.state.user ? <Button className="logout-button" variant="danger" onClick={this.logOutHandler}>Logout</Button> : null}
         </div>
       );
     }

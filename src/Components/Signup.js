@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { Form, Button } from 'react-bootstrap'
 
 class Signup extends Component{
     state = {
@@ -19,13 +20,18 @@ class Signup extends Component{
     render(){
 
         return (
-            <div>
-                <form onSubmit={this.submitHandler}>
-                    <input type="text" name="name" placeholder="Pame" value={this.state.name} onChange={this.changeHandler}/>
-                    <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
-                    <input type="submit" value="sign up" />
-                </form>
-                <button onClick={() => this.props.history.push('/login')}>Back to Login</button>
+            <div className="login-form">
+                <h2>Create a new account here!</h2>
+                <Form onSubmit={this.submitHandler}>
+                    <Form.Group/>
+                        <Form.Control type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.changeHandler}/>
+                        <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
+                    <Form.Group/>
+                    <Form.Group/>
+                        <Button variant="dark" type="submit" value="sign up">Sign up!</Button>
+                    <Form.Group/>
+                </Form>
+                <Button variant="dark" onClick={() => this.props.history.push('/login')}>Back to Login </Button>
             </div>
         )
     }

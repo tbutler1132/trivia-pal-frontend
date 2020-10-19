@@ -30,7 +30,7 @@ $(function() {
     if (data.numUsers === 1) {
       message += "there's 1 participant";
     } else {
-      message += "there are " + data.numUsers + " participants";
+      message += data.numUsers + " people are particpating in Russell's blog presentation ";
     }
     log(message);
   }
@@ -229,7 +229,7 @@ $(function() {
   socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to Russ Chat – ";
+    var message = "Welcome FIS - NYC - 080320 !";
     log(message, {
       prepend: true
     });
