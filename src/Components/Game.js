@@ -13,6 +13,7 @@ class Game extends React.Component {
         numberOfQuestions: this.props.numberOfQuestions,
         difficulty: this.props.difficulty,
         submitted: false,
+        answered: false
     }
 
     componentDidMount() {
@@ -23,12 +24,9 @@ class Game extends React.Component {
     }
     componentDidUpdate() {
     }
-
-
     capitalize(str){
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
-
     shuffle = (a) =>  {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
@@ -54,20 +52,20 @@ class Game extends React.Component {
     nextQuestion = (value) => {
         if (this.state.filteredQuestions !== 0) {
             this.props.updateScore(value)
-            setTimeout(this.updateQuestions(value), 1000)
-        } else {
+            this.setState({ answered: true })
+            setTimeout(this.updateQuestions, 3000)
         }
     }
 
     updateQuestions = () => {
         let newArray = this.state.filteredQuestions.shift()
-        this.setState({ filteredArray: newArray })
+        this.setState({ filteredArray: newArray, answered: false })
         this.setState(prevState => ({ questionsLeft: prevState.questionsLeft - 1 }))
     }
 
     renderQuestion = () => {
         let singleQuestion = this.state.filteredQuestions.slice(0, 1);
-        return <Question key={singleQuestion.id} question={singleQuestion[0]} shuffle={this.shuffle} nextQuestion={this.nextQuestion}/>
+        return <Question key={singleQuestion.id} question={singleQuestion[0]} nextQuestion={this.nextQuestion} answered={this.state.answered}/>
     }
 
     submitScore = () => {
@@ -94,6 +92,7 @@ class Game extends React.Component {
             numberOfQuestions: this.props.numberOfQuestions,
             difficulty: this.props.difficulty,
             submitted: false,
+            answered: false,
         });
         setTimeout(this.props.newGame(), 500)
     }
@@ -102,8 +101,11 @@ class Game extends React.Component {
         return (
             <> 
                 <div>
-                    <span><h1>Category: {this.capitalize(this.state.category)}</h1><h1>Difficulty: {this.capitalize(this.state.difficulty)}</h1><h1>Questions Left: {this.state.filteredQuestions.length}</h1><h1>Current Score: {this.props.score} / {this.props.numberOfQuestions}</h1></span>
-                    {this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <button disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</button> <button onClick={() => this.resetState() } >New Game</button> </>: <>{this.renderQuestion()}</>}
+                    <span><h1>Category: {this.capitalize(this.state.category)}</h1>
+                        <h1>Difficulty: {this.capitalize(this.state.difficulty)}</h1>
+                        <h1>Questions Left: {this.state.filteredQuestions.length}</h1>
+                        <h1>Current Score: {this.props.score} / {this.props.numberOfQuestions}</h1></span>
+                    {this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <button disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</button> <button onClick={() => this.resetState() } >New Game</button> </> : <>{this.renderQuestion()}</>}
                 </div>
             </>
         )

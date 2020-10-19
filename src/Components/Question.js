@@ -4,20 +4,27 @@ import Answer from './Answer'
 class Question extends React.Component {
     
     state = {
-        answered: false,
     }
 
-    componentDidUpdate() {
+    shuffle = (a) =>  {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
     }
 
     renderAnswers = () => {
         if (this.props.question) {
             let wrongAnswers = this.props.question.incorrect_answers.map((answer, index) => {
-                return <Answer key={index} value={0} answer={answer} nextQuestion={this.props.nextQuestion}/>
+                return <Answer key={index} value={0} answer={answer} nextQuestion={this.props.nextQuestion} answered={this.props.answered}/>
             })
-            let rightAnswer = <Answer key={this.props.question.correct_answer} value={1} answer={this.props.question.correct_answer} nextQuestion={this.props.nextQuestion}/>
+            let rightAnswer = <Answer key={this.props.question.correct_answer} value={1} answer={this.props.question.correct_answer} nextQuestion={this.props.nextQuestion} answered={this.props.answered} questionAnswered={this.answeredQuestion}/>
             let answers = [...wrongAnswers, rightAnswer]
-            return this.props.shuffle(answers)
+            return this.shuffle(answers)
         }
     }
 
@@ -30,7 +37,9 @@ class Question extends React.Component {
                         {this.renderAnswers()}
                     </div>
                     :
-                    <h1>Please refresh your session by logging out then back in</h1>
+                    <>
+                        {this.props.history.push('/lobby')}
+                    </>
                 }
             </>
         )

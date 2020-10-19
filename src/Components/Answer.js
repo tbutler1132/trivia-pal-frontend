@@ -26,7 +26,7 @@ class Answer extends React.Component {
 
     render() {
         return (
-            <button className="answer" id={this.state.htmlID} onClick={() => this.submitAnswer() }>
+            <button className="answer" id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
                 { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
             </button >
         )
