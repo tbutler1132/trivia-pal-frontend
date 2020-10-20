@@ -73,15 +73,18 @@
 }
 
 .container-1 {
-  // display: flex;
-  // border: 1px #ccc solid;
-  // border-color: black;
   background-color: #9BD1E5;
-  margin-top: 5%;
+  margin-top: 2%;
   margin-bottom: 5%;
   font-family: Impact, Charcoal, sans-serif;
   text-align: center;
   // margin-left: 25%;
+}
+
+#question-div {
+  border: 1px #ccc solid;
+  border-color: black;
+  font-family: Impact, Charcoal, sans-serif;
 }
 
 .header-container {
@@ -95,7 +98,7 @@
   position: relative;
   right: 5px;
   left: 100px;
-  margin-top: 5%;
+  margin-top: 1%;
   width: 350px;
   height: 650px;
   border: 5px #ccc solid;
@@ -105,18 +108,19 @@
 }
 
 .container-4{
-  margin-top: 5%;
+  margin-top: 1%;
   margin-left: 5%;
   border: solid;
   border-color: white;
   background-color: #57A773;
+  font-family: Impact, Charcoal, sans-serif;
 }
 
-.game-buttons-row {
-  // margin-top: 10%;
-  font-family: Impact, Charcoal, sans-serif;
-  font-size: larger;
-}
+// .game-buttons-row {
+//   // margin-top: 10%;
+//   font-family: Impact, Charcoal, sans-serif;
+//   font-size: larger;
+// }
 
 [target=_blank] {
   color: black;
@@ -127,7 +131,39 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  padding: 10px 24px;
+  border-radius: 12px;
+  transition: all 0.5s;
+  cursor: pointer;
+  // background-color: #4CAF50; /* Green */
+  // color: white;
+  // transition-duration: 0.4s;
 
+}
+
+[target=_blank] span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+[target=_blank] span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+[target=_blank]:hover span {
+  padding-right: 25px;
+}
+
+[target=_blank]:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 // .container-3 {
@@ -137,5 +173,23 @@
 //   margin-right: 60%;
 //   // margin-top: 5%;
 // }
+
+.profile-container {
+  border: 1px #ccc solid;
+  border-color: black;
+  position: relative;
+  font-family: Impact, Charcoal, sans-serif;
+  left: 80px;
+  margin-top: 1%;
+  background-color: #157145;
+  width: 200px;
+  text-align: left;
+  padding-left: 1%;
+  color: white;
+}
+
+.logout-button {
+  color: black;
+}
 
 

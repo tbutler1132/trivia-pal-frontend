@@ -4,6 +4,7 @@ import Answer from './Answer'
 class Question extends React.Component {
     
     state = {
+        highScores: []
     }
 
     shuffle = (a) =>  {
@@ -32,7 +33,7 @@ class Question extends React.Component {
         return (
             <>
                 {this.props.question ?
-                    <div className='container-1'>
+                    <div className='container-1'id="question-div">
                         <h1 className="question-title">{this.props.question.question.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&")}</h1>
                         {this.renderAnswers()}
                     </div>

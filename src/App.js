@@ -50,7 +50,7 @@ class App extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      this.setState({ user: data })
+      this.setState({ user: data.user })
       localStorage.setItem("token", data.jwt)
       this.props.history.push('/lobby')
     })
@@ -68,7 +68,7 @@ class App extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      this.setState({ user: data})
+      this.setState({ user: data.user})
       localStorage.setItem("token", data.jwt)
       this.props.history.push('/lobby')
     })

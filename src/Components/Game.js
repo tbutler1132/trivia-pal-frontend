@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import Question from './Question'
 import Chat from './Chat'
 import { Container, Row, Col, Button } from 'react-bootstrap'
+import Leaderboard from './Leaderboard'
 
 const BASE_API = 'http://localhost:3000'
 
@@ -71,6 +72,7 @@ class Game extends React.Component {
     }
 
     submitScore = () => {
+        const questions = parseInt(this.props.numberOfQuestions)
         fetch(BASE_API + "/scores", {
             method: "POST",
             headers: {
@@ -79,6 +81,9 @@ class Game extends React.Component {
             },
             body: JSON.stringify({
                 points: this.props.score,
+                difficulty: this.props.difficulty,
+                category: this.props.category,
+                questions: questions,
                 user_id: this.props.user.id
             })
         })
@@ -100,7 +105,7 @@ class Game extends React.Component {
     }
 
     render() {
-        console.log(this.state.numberOfQuestions)
+        // console.log(this.props.user.user.scores.map(el => el.points).reduce((a, b) => a + b, 0))
         return (
             <> 
                 <div >
@@ -114,11 +119,19 @@ class Game extends React.Component {
                             {/* <Col><Chat /></Col> */}
 
                         </Row>
-                        <div className="game-buttons-row">
+                        <div className="profile-container">
                             <Row >
-                                <Col className= "container-4" sm={8} id="game">{this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <h3> Final Score: {this.props.score} / {this.props.numberOfQuestions}</h3> <Button variant="dark" disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</Button> <Button variant="dark" onClick={() => this.resetState() } >New Game</Button>  </> : <>{this.renderQuestion()}</>} </Col>
+                                <Col>{this.props.user ?<h3>Name: { this.props.user.name} </h3> : null}</Col>
+                            </Row>
+                            <Row>
+                                <Col>{this.props.user.scores.length > 0 ? <h3>Total Score: {this.props.user.scores.map(el => el.points).reduce((a, b) => a + b, 0)}</h3> : <h3>Woot woot!</h3>}</Col>
+                            </Row>
+                        </div>
+                        <div >
+                            <Row >
+                                <Col className= "container-4" sm={8} id="game">{this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <h3> Final Score: {this.props.score} / {this.props.numberOfQuestions}</h3> <Button variant="dark" disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</Button> <Button variant="dark" onClick={() => this.resetState() } >New Game</Button> <Leaderboard /> </> : <>{this.renderQuestion()}</>} </Col>
                                 <div className="chat-container">
-                                    <Chat questionsLength={this.state.numberOfQuestions}/>
+                                    <Chat questionsLength={this.state.filteredQuestions.length}/>
                                 </div>
     
                             </Row>

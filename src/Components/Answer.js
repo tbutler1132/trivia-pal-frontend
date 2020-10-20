@@ -8,6 +8,8 @@ class Answer extends React.Component {
         clicked: false,
     }
 
+
+
     submitAnswer = () => {
         if (!this.state.clicked) {
             switch (this.props.value) {
@@ -31,7 +33,9 @@ class Answer extends React.Component {
                 <div >
                 <Row >
                     <button target="_blank" variant="white"  id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
-                        { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
+                        <span>
+                            { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
+                        </span>
                     </button >
                 </Row>
                 </div >
