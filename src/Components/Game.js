@@ -1,6 +1,8 @@
 import React from "react"
 import { withRouter } from 'react-router-dom'
 import Question from './Question'
+import Chat from './Chat'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
 const BASE_API = 'http://localhost:3000'
 
@@ -98,14 +100,30 @@ class Game extends React.Component {
     }
 
     render() {
+        console.log(this.state.numberOfQuestions)
         return (
             <> 
-                <div>
-                    <span><h1>Category: {this.capitalize(this.state.category)}</h1>
-                        <h1>Difficulty: {this.capitalize(this.state.difficulty)}</h1>
-                        <h1>Questions Left: {this.state.filteredQuestions.length}</h1>
-                        <h1>Current Score: {this.props.score} / {this.props.numberOfQuestions}</h1></span>
-                    {this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <button disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</button> <button onClick={() => this.resetState() } >New Game</button> </> : <>{this.renderQuestion()}</>}
+                <div >
+                    <Container fluid>
+                        <Row className="header-container">
+                            <Col><h3>Category: {this.capitalize(this.state.category)}</h3></Col>
+                            <Col><h3>Difficulty: {this.capitalize(this.state.difficulty)}</h3></Col>
+                            <Col><h3>Questions Left: {this.state.filteredQuestions.length}</h3></Col>
+                            <Col>{ this.state.filteredQuestions.length === 0 ? <h3>Good Game!</h3> : <h3>Current Score: {this.props.score} / {this.props.numberOfQuestions}</h3>}</Col>
+         
+                            {/* <Col><Chat /></Col> */}
+
+                        </Row>
+                        <div className="game-buttons-row">
+                            <Row >
+                                <Col className= "container-4" sm={8} id="game">{this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <h3> Final Score: {this.props.score} / {this.props.numberOfQuestions}</h3> <Button variant="dark" disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</Button> <Button variant="dark" onClick={() => this.resetState() } >New Game</Button>  </> : <>{this.renderQuestion()}</>} </Col>
+                                <div className="chat-container">
+                                    <Chat questionsLength={this.state.numberOfQuestions}/>
+                                </div>
+    
+                            </Row>
+                        </div>
+                    </Container>
                 </div>
             </>
         )

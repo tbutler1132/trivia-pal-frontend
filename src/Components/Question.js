@@ -32,8 +32,8 @@ class Question extends React.Component {
         return (
             <>
                 {this.props.question ?
-                    <div className="question">
-                        <h1 className="question-title">Question: {this.props.question.question.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&")}</h1>
+                    <div className='container-1'>
+                        <h1 className="question-title">{this.props.question.question.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&")}</h1>
                         {this.renderAnswers()}
                     </div>
                     :

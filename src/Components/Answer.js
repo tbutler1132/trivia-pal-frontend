@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button, Form } from 'react-bootstrap'
+import { Container, Button, Row, Col } from 'react-bootstrap'
 
 class Answer extends React.Component {
 
@@ -27,9 +27,15 @@ class Answer extends React.Component {
 
     render() {
         return (
-            <Button className="answer" id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
-                { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
-            </Button >
+            <Container className="container-1">
+                <div >
+                <Row >
+                    <button target="_blank" variant="white"  id={this.state.htmlID} disabled={this.props.answered} onClick={() => this.submitAnswer() }>
+                        { this.props.answer.replace(/&quot;|&#039;/gi, "'").replace(/&amp;/gi, "&") }
+                    </button >
+                </Row>
+                </div >
+            </Container>
         )
     }
 }

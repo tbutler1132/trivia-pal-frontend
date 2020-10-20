@@ -26,7 +26,7 @@ class GameContainer extends React.Component {
         return (
         <>
                 {token ?
-                    <div className="game-form">
+                    <div className="game-form" >
                         <h1 className="header"><u>Create a New Game!</u></h1>
                         <br/>
                         <br/>
