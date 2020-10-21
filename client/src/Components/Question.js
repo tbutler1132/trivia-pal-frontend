@@ -1,11 +1,8 @@
 import React from 'react'
 import Answer from './Answer'
+import { Button } from 'react-bootstrap'
 
 class Question extends React.Component {
-    
-    state = {
-        highScores: []
-    }
 
     shuffle = (a) =>  {
         var j, x, i;
@@ -21,13 +18,14 @@ class Question extends React.Component {
     renderAnswers = () => {
         if (this.props.question) {
             let wrongAnswers = this.props.question.incorrect_answers.map((answer, index) => {
-                return <Answer key={index} value={0} answer={answer} nextQuestion={this.props.nextQuestion} answered={this.props.answered} variant={this.props.variant}/>
+                return <Answer key={index} value={0} answer={answer} nextQuestion={this.props.nextQuestion} active={false} />
             })
-            let rightAnswer = <Answer key={this.props.question.correct_answer} value={1} answer={this.props.question.correct_answer} nextQuestion={this.props.nextQuestion} variant={this.props.variant}/>
+            let rightAnswer = <Answer key={this.props.question.correct_answer} value={1} answer={this.props.question.correct_answer} nextQuestion={this.props.nextQuestion} active={false}/>
             let answers = [...wrongAnswers, rightAnswer]
             return this.shuffle(answers)
         }
     }
+
 
     render() {
         return (

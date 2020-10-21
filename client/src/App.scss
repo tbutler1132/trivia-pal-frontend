@@ -150,6 +150,8 @@
   border-color: white;
   background-color: #57a773;
   font-family: Impact, Charcoal, sans-serif;
+  justify-content: center;
+  text-align: center;
 }
 
 // .game-buttons-row {
@@ -215,7 +217,7 @@
   border-color: black;
   position: relative;
   font-family: Impact, Charcoal, sans-serif;
-  left: 80px;
+  margin-left: 4%;
   margin-top: 1%;
   background-color: #157145;
   width: 200px;
@@ -224,6 +226,31 @@
   color: white;
 }
 
+#profile-name {
+  margin-top: 3%;
+}
+
 .logout-button {
   color: black;
+}
+
+
+.leaderboard {
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 1%;
+  background-color: #9BD1E5;
+}
+
+.leaderboard-buttons {
+  margin: auto;
+  margin-bottom: 2%;
+}
+
+#submit-score {
+  margin-left: 60%;
+}
+
+#new-game-button {
+    margin-right: 60%;
 }

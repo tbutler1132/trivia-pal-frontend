@@ -11,7 +11,7 @@ class Game extends React.Component {
 
     state = {
         allQuestions: [],
-        filteredQuestions: [],
+        filteredQuestions: '',
         category: this.props.category,
         numberOfQuestions: this.props.numberOfQuestions,
         difficulty: this.props.difficulty,
@@ -24,8 +24,7 @@ class Game extends React.Component {
             .then(data => this.setState({ allQuestions: data }))
             .then(() => this.setQuestions() )
     }
-    componentDidUpdate() {
-    }
+
     capitalize(str){
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -66,39 +65,18 @@ class Game extends React.Component {
 
     renderQuestion = () => {
         let singleQuestion = this.state.filteredQuestions.slice(0, 1);
-        return <Question key={singleQuestion.id} question={singleQuestion[0]} nextQuestion={this.nextQuestion} answered={this.state.answered} variant='light' />
-    }
-
-    submitScore = () => {
-        const questions = parseInt(this.props.numberOfQuestions)
-        fetch(BASE_API + "/scores", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accepts": "application/json"
-            },
-            body: JSON.stringify({
-                points: this.props.score,
-                difficulty: this.props.difficulty,
-                category: this.props.category,
-                questions: questions,
-                user_id: this.props.user.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(resp => console.log(resp))
-        .then(resp => this.setState({ submitted: true }))
+        return <Question key={singleQuestion.id} question={singleQuestion[0]} nextQuestion={this.nextQuestion} />
     }
 
     resetState = () => {
+        this.props.newGame()
         this.setState({
             filteredQuestions: [],
             category: this.props.category,
             numberOfQuestions: this.props.numberOfQuestions,
             difficulty: this.props.difficulty,
-            submitted: false,
-        });
-        setTimeout(this.props.newGame(), 500)
+            submitted: false
+        })
     }
 
     render() {
@@ -117,16 +95,19 @@ class Game extends React.Component {
 
                         </Row>
                         <div className="profile-container">
-                            <Row >
-                                <Col>{this.props.user ? <h3>Name: { this.props.user.name} </h3> : null}</Col>
-                            </Row>
-                            <Row>
-                                <Col>{this.props.user.scores.length > 0 ? <h3>High Score: {this.props.user.scores.map(el => el.points).reduce((a, b) => a + b, 0)}</h3> : <h3>Woot woot!</h3>}</Col>
+                            <Row id="profile-name">
+                                <Col>{this.props.user ? <h3>Player: { this.props.user.name} </h3> : null }</Col>
                             </Row>
                         </div>
                         <div >
                             <Row >
-                                <Col className="container-4" sm={7} id="game">{this.state.filteredQuestions.length === 0 ? <><h1>Thank you for playing!</h1> <h3> Final Score: {this.props.score} / {this.props.numberOfQuestions}</h3> <Button variant="dark" disabled={this.state.submitted} onClick={() => this.submitScore()}>Submit Score!</Button> <Button variant="dark" onClick={() => this.resetState()} >New Game</Button> <Leaderboard user={this.props.user}/> </> : <>{this.renderQuestion()}</>} </Col>
+                                <Col className="container-4" sm={7} id="game">{this.state.filteredQuestions.length !== 0 ? <>{this.renderQuestion()}</> :
+                                    <>
+                                        <br/>
+                                        <h1>Thank you for playing!</h1>
+                                        <h3> Final Score: {this.props.score} / {this.props.numberOfQuestions}</h3>
+                                        <Leaderboard user={this.props.user} submitted={this.state.submitted} questions={this.state.numberOfQuestions} difficulty={this.state.difficulty} category={this.state.category} score={this.props.score} resetState={this.resetState}/> </>}
+                                </Col>
                                 <Col sm={3} className="chat-container"> <Chat user={this.props.user}/> </Col>
                             </Row>
                         </div>
