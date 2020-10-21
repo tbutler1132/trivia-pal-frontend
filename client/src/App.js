@@ -48,8 +48,8 @@ class App extends Component {
       body: JSON.stringify({user: userObj})
     })
     .then(r => r.json())
-    .then(data => {
-      this.setState({ user: data })
+      .then(data => {
+      this.setState({ user: data.user })
       localStorage.setItem("token", data.jwt)
       this.props.history.push('/lobby')
     })
@@ -66,8 +66,8 @@ class App extends Component {
       body: JSON.stringify({user: userInfo})
     })
     .then(r => r.json())
-    .then(data => {
-      this.setState({ user: data})
+      .then(data => {
+      this.setState({ user: data.user })
       localStorage.setItem("token", data.jwt)
       this.props.history.push('/lobby')
     })

@@ -3,38 +3,32 @@ import { Button, Form } from 'react-bootstrap'
 import io from 'socket.io-client'
 
 
-
 class Chat extends React.Component {
 
     constructor(props) {
-        super(props)
+        super()
         this.state = {
-            user: this.props.user.name,
+            user: props.user,
             message: '',
             messages: [],
         }
-
         this.socket = io('localhost:3002')
 
         this.socket.on('receive message', (data) => {
-        console.log(data)
-        this.setState({messages: [...this.state.messages, data], message: ''})
+            console.log(data)
+            this.setState({messages: [...this.state.messages, data], message: ''})
         })
-  
-        this.submitMessage = (e) => {
-            e.preventDefault()
-            this.socket.emit('new message', {
-                author: this.props.user.name,
-                message: this.state.message
-            })
-        }
-    }
-
-    componentDidMount() {
-        console.log(this.props.user)
     }
 
 
+    submitMessage = (e) => {
+        e.preventDefault()
+        let name = this.state.user.name
+        this.socket.emit('new message', {
+            author: name,
+            message: this.state.message
+        })
+    }
 
 
     renderMessages = () => {
