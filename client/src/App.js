@@ -103,6 +103,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.user)
     return (
         <div className="app-div" >
 
@@ -114,8 +115,8 @@ class App extends Component {
             <Route path="/game" render={() => <Game user={this.state.user} category={this.state.category} difficulty={this.state.difficulty} numberOfQuestions={this.state.numberOfQuestions} updateScore={this.updateScore} score={this.state.score} newGame={this.newGame} />} />
         </Switch>
         <br/>
-        {this.state.user.name !== '' ? <Button className="logout-button" variant="danger" onClick={this.logOutHandler}>Logout</Button> 
-          : null}
+        {/* {this.state.user.name !== '' ? <Button className="logout-button" variant="danger" onClick={this.logOutHandler}>Logout</Button> 
+          : null} */}
         </div>
       );
     }
